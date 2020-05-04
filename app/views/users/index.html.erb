@@ -1,0 +1,22 @@
+<div class="container">
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+  <h2>All Users</h2>
+
+  <div class="list-group">
+    <% @users.each do |user| %>
+      <div class="list-group-item d-flex flex-row">
+          <a href="/users/<%= user.id %>" class="mr-2"><%= gravatar_for user %></a>
+          <div class="d-flex flex-column flex-grow-1">
+            <div class="d-flex flex-row align-items-center justify-content-between">
+              <%= link_to user.username, user, class: "m-0, username-style"%>
+              <%= link_to "See Profile", user, class: "btn btn-xs btn-dark"%>
+            </div>
+          </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+</div>
+</div>
