@@ -11,12 +11,7 @@
 
   <body>
     <%= render 'layouts/header'%> 
-    <div class="alert alert-primary" role="alert">
-      <%= notice %>
-    </div>
-    <div class="alert alert-danger" role="alert">
-      <%= alert %>
-    </div>
+    <%= render 'layouts/alertnotice'%>
     <%= yield %>
   </body>
 </html>
