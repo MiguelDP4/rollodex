@@ -40,6 +40,12 @@ class User < ApplicationRecord
     deleted_friendship[0].delete
   end
 
+  def cancel_request(unfriended_user)
+    pending = friendships.map{ |friendship| friendship unless friendship.confirmed }.compact
+    pending = pending.map{ |friendship| friendship if friendship.friend == unfriended_user || friendship.user == unfriended_user }
+    pending[0].delete
+  end
+
   def friend?(user)
     friends.include?(user)
   end
