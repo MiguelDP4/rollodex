@@ -42,8 +42,15 @@ class User < ApplicationRecord
 
   def cancel_request(unfriended_user)
     pending = friendships.map{ |friendship| friendship unless friendship.confirmed }.compact
-    pending = pending.map{ |friendship| friendship if friendship.friend == unfriended_user || friendship.user == unfriended_user }
-    pending[0].delete
+    pending = pending.map{ |friendship| friendship if friendship.friend == unfriended_user }
+    pending.first.delete
+  end
+
+  def reject_request(unfriended_user)
+    pending = inverse_friendships.map{ |friendship| friendship unless friendship.confirmed }.compact
+    pending = pending.map{ |friendship| friendship if friendship.user == unfriended_user }
+    pending.first.confirmed = false
+    pending.first.save
   end
 
   def friend?(user)
@@ -51,10 +58,27 @@ class User < ApplicationRecord
   end
 
   def can_send_request?(user)
-    !friend?(user) && user != self && !all_pending_requests.include?(user)
+    if user != self && !friend?(user) && !all_pending_requests.include?(user)
+      return true
+    elsif rejected?(user)
+      return true
+    else
+      return false
+    end
   end
 
   def has_pending_request?(user)
-    friend_requests.include?(user)
+    friend_requests.include?(user) && !rejected?(user)
+  end
+
+  def rejected?(user)
+    pending_friendship = inverse_friendships.map { |friendship| friendship if friendship.user == user}.compact.first
+    if pending_friendship.nil?
+      return false
+    elsif pending_friendship.confirmed == true || pending_friendship.confirmed.nil?
+      return false
+    elsif pending_friendship.confirmed == false
+      return true
+    end
   end
 end

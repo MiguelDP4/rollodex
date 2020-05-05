@@ -15,6 +15,10 @@ class FriendshipsController < ApplicationController
       current_user.confirm_friend(user)
       flash[:success] = "You are now friends with #{user.username}"
       redirect_to user
+    elsif params[:friendship_action] == 'reject'
+      current_user.reject_request(user)
+      flash[:danger] = "You rejected #{user.username}'s friend request"
+      redirect_to request.referrer
     elsif params[:friendship_action] == 'unfriend'
       current_user.unfriend(user)
       flash[:danger] = "You are no longer friends with #{user.username}"

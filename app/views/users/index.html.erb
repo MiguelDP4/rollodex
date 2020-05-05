@@ -19,16 +19,18 @@
           <div class="d-flex flex-row align-items-center mt-1">
             <% if current_user.can_send_request?(user) %>
               <%= link_to 'Send Friend Request', user_path(user, params: { friendship_action: 'invite', user_id: user.id }),
-              method: :post, class: "btn btn-primary btn-sm" %>
+              method: :post, class: "btn btn-primary btn-xs mr-1" %>
             <% elsif current_user.has_pending_request?(user) %>
               <%= link_to 'Accept Friend Request', user_path(user, params: { friendship_action: 'accept', user_id: user.id }),
-              method: :update, class: "btn btn-success btn-sm" %>
+              method: :update, class: "btn btn-success btn-xs mr-1" %>
+              <%= link_to 'Reject Friend Request', user_path(user, params: { friendship_action: 'reject', user_id: user.id }),
+              method: :update, class: "btn btn-dark btn-xs mr-1" %>
             <% elsif user != current_user && current_user.friend?(user)%>
               <%= link_to 'Unfriend', user_path(user, params: { friendship_action: 'unfriend', user_id: user.id }),
-              method: :update, class: "btn btn-danger btn-sm" %>
+              method: :update, class: "btn btn-danger btn-xs mr-1" %>
             <% elsif current_user.pending_friends.include?(user) %>
               <%= link_to 'Cancel Friend Request', user_path(user, params: { friendship_action: 'cancel-request', user_id: user.id }),
-              method: :update, class: "btn btn-danger btn-sm" %>
+              method: :update, class: "btn btn-danger btn-xs mr-1" %>
             <% end %>
           </div>
         </div>
