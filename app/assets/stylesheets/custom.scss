@@ -1,0 +1,46 @@
+
+
+body {
+  padding-top: 60px;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(125, 123, 125, 0.25);
+  border-color: #eeeeee;
+}
+
+.text-dark {
+  color:#565c62 !important;
+}
+
+.text-dark:hover {
+  color:black !important;
+}
+
+.username-style {
+  color: black;
+  font-size: 1.3em;
+  line-height: 0;
+}
+
+a.username-style:hover {
+  text-decoration: underline red;
+  color:black;
+}
+
+a.btn-xs, input.btn-xs {
+  padding: 0.25rem 0.3rem;
+  font-size: 0.7rem;
+  line-height: 1.0;
+  border-radius: 0.2rem;
+}
+
+.sticky-top {
+  top: 62px
+}
+
+.alert-notice {
+  color: #10820e;
+  background-color: #99b898;
+  border-color: #053004;
+}
