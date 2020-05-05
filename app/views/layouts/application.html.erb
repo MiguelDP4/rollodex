@@ -10,12 +10,8 @@
   </head>
 
   <body>
-    <div class="alert alert-primary" role="alert">
-      <%= notice %>
-    </div>
-    <div class="alert alert-danger" role="alert">
-      <%= alert %>
-    </div>
+    <%= render 'layouts/header'%>
+    <%= render 'layouts/flash'%>
     <%= yield %>
   </body>
 </html>

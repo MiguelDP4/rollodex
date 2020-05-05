@@ -1,0 +1,41 @@
+<div class="container">
+<div class="row">
+<div class="col-md-2"></div>
+<div class="col-md-8">
+  <h2>All Users</h2>
+
+  <div class="list-group">
+    <% @users.each do |user| %>
+      <div class="list-group-item">
+        <div class="d-flex flex-row">
+          <a href="/users/<%= user.id %>" class="mr-2"><%= gravatar_for user %></a>
+          <div class="d-flex flex-column flex-grow-1">
+            <div class="d-flex flex-row align-items-center justify-content-between">
+              <%= link_to user.username, user, class: "m-0, username-style"%>
+              <%= link_to "See Profile", user, class: "btn btn-xs btn-dark"%>
+            </div>
+          </div>
+        </div>
+          <div class="d-flex flex-row align-items-center mt-1">
+            <% if current_user.can_send_request?(user) %>
+              <%= link_to 'Send Friend Request', user_path(user, params: { friendship_action: 'invite', user_id: user.id }),
+              method: :post, class: "btn btn-primary btn-xs mr-1" %>
+            <% elsif current_user.has_pending_request?(user) %>
+              <%= link_to 'Accept Friend Request', user_path(user, params: { friendship_action: 'accept', user_id: user.id }),
+              method: :update, class: "btn btn-success btn-xs mr-1" %>
+              <%= link_to 'Reject Friend Request', user_path(user, params: { friendship_action: 'reject', user_id: user.id }),
+              method: :update, class: "btn btn-dark btn-xs mr-1" %>
+            <% elsif user != current_user && current_user.friend?(user)%>
+              <%= link_to 'Unfriend', user_path(user, params: { friendship_action: 'unfriend', user_id: user.id }),
+              method: :update, class: "btn btn-danger btn-xs mr-1" %>
+            <% elsif current_user.pending_friends.include?(user) %>
+              <%= link_to 'Cancel Friend Request', user_path(user, params: { friendship_action: 'cancel-request', user_id: user.id }),
+              method: :update, class: "btn btn-danger btn-xs mr-1" %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+</div>
+</div>
