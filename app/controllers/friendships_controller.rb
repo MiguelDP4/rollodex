@@ -4,8 +4,17 @@ class FriendshipsController < ApplicationController
     user = User.find(params[:user_id])
     if params[:friendship_action] == 'invite'
       flash[:primary] = "Sent request to user #{user.username}"
-      @friendship = Friendship.new(user_id: current_user.id, friend_id: user.id)
-      
+      user_friendships = current_user.friendships
+      user_friendships += current_user.inverse_friendships
+      user_friendships = user_friendships.map { |friendship| friendship if friendship.friend == user || friendship.user == user }
+
+      if user_friendships.first.nil?
+        @friendship = Friendship.new(user_id: current_user.id, friend_id: user.id)
+      else
+        @friendship = user_friendships.first
+        @friendship.delete
+        @friendship = Friendship.new(user_id: current_user.id, friend_id: user.id)
+      end
       if @friendship.save
         redirect_to user
       else
