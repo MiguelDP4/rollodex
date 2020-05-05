@@ -1,3 +1,34 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
-<p>If you can see this, it means you are signed in</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <% if user_signed_in? %>
+          <div class="sticky-top">
+            <h2><%= @user.username %></h2>
+            <div class="mb-2"><%= gravatar_for(@user, 120) %></div>
+            <div class="post-form">
+              <%= render 'posts/post_form'%>
+            </div>
+          </div>
+      <% end %>
+    </div>
+    <div class="col-md-4">
+      <h2><%= @user.username %>'s feed</h2>
+      <% @posts.each do |post| %>
+        <div class="list-group-item">
+          <div class="d-flex flex-row">
+            <a href="/users/<%= post.user.id %>" class="mr-2"><%= gravatar_for post.user %></a>
+            <div class="d-flex flex-column flex-grow-1">
+              <div class="d-flex flex-row align-items-center justify-content-between">
+                <%= link_to post.user.username, post.user, class: "m-0, username-style"%>
+                <%= link_to "See Profile", post.user, class: "btn btn-xs btn-dark"%>
+              </div>
+              <div class="d-flex flex-row align-items-center justify-content-between">
+                <%= post.content %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
