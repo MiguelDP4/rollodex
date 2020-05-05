@@ -1,0 +1,6 @@
+<%= form_with(model: @post, local: true) do |f| %>
+<div class="form-group">
+  <%= f.text_area :content, placeholder: "Compose new post...", class: "form-control" %>
+</div>
+<%= f.submit "Post", class: "btn btn-dark" %>
+<% end %>
