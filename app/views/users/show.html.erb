@@ -7,7 +7,14 @@
   </div>
 </div>
 <div class="col-md-8">
-  <%# The posts will be published here %>
+  <% if current_user.friend?(@user) || current_user == @user %>
+    <h2>All of <%= @user.username %>'s posts</h2>
+    <%= render 'posts/post_display'%>
+  <% else %>
+    <div class="alert alert-dark" role="alert">
+      You have to be <%= @user.username %>'s friend to see his/her posts.
+    </div>
+  <%end%>
 </div>
 </div>
 </div>
