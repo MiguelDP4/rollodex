@@ -1,12 +1,12 @@
 <div class="container">
 <div class="row">
-<div class="col-md-2">
+<div class="col-sm-12 col-md-3 col-lg-4">
   <div class="sticky-top">
     <h2><%= @user.username %></h2>
     <div><%= gravatar_for(@user, 120) %></div>
   </div>
 </div>
-<div class="col-md-8">
+<div class="col-sm-12 col-md-9 col-lg-8">
   <% if current_user.friend?(@user) || current_user == @user %>
     <h2>All of <%= @user.username %>'s posts</h2>
     <% if @pagy.nil?%>
