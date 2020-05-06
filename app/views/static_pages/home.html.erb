@@ -14,7 +14,15 @@
     <div class="col-md-4">
       <h2><%= @user.username %>'s feed</h2>
       <ul class="list-group">
-      <%= render 'posts/post_display' %>
+      <% if @pagy.nil?%>
+      <div class="alert alert-dark" role="alert">
+        Your feed is currently empty. Publish a post or wait until one of your friends does.
+      </div>
+      <%else%>
+        <div class="d-flex flex-row justify-content-center mb-2"><%== pagy_bootstrap_nav(@pagy)%></div>
+          <%= render 'posts/post_display' %>
+        <div class="d-flex flex-row justify-content-center mt-2"><%== pagy_bootstrap_nav(@pagy)%></div>
+      <% end %>
     </ul>
   </div>
 </div>

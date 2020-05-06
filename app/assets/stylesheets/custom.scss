@@ -44,3 +44,17 @@ a.btn-xs, input.btn-xs {
   background-color: #99b898;
   border-color: #053004;
 }
+
+.page-link {
+  color: #565c62;
+}
+
+.page-link:hover {
+  color: black;
+  font-weight: bold;
+}
+
+.page-item.active .page-link {
+  background-color: #343a40;
+  border-color: #343a40;
+}

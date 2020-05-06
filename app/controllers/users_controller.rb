@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all
+    @pagy, @users = pagy(User.all) if User.all.count != 0
   end
 
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts
+    @pagy, @posts = pagy(@user.posts) if @user.posts.count != 0
   end
 end
