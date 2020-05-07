@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' ,sessions: 'users/sessions' }
   root 'static_pages#home'
   get 'static_pages/home'
+  get '/conversations/:id',       to: 'conversations#show'
   get '/users/:id',               to: 'users#show', as: :user
   get '/users',                   to: 'users#index'
   get '/friends',                 to: 'users#friends'
