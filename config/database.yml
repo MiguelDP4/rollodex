@@ -17,4 +17,5 @@ test:
 
 production:
   <<: *default
+
   database: rollodex_production
