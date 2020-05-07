@@ -7,4 +7,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @pagy, @posts = pagy(@user.posts) if @user.posts.count != 0
   end
+
+  def friends
+    @pagy, @users = pagy(current_user.friends)
+  end
+
+  def friend_requests
+    @pagy, @users = pagy(current_user.friend_requests)
+  end
 end
