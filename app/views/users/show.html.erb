@@ -1,13 +1,28 @@
 <div class="container">
 <div class="row">
-<div class="col-md-2">
+<div class="col-sm-12 col-md-3 col-lg-4">
   <div class="sticky-top">
     <h2><%= @user.username %></h2>
     <div><%= gravatar_for(@user, 120) %></div>
   </div>
 </div>
-<div class="col-md-8">
-  <%# The posts will be published here %>
+<div class="col-sm-12 col-md-9 col-lg-8">
+  <% if current_user.friend?(@user) || current_user == @user %>
+    <h2>All of <%= @user.username %>'s posts</h2>
+    <% if @pagy.nil?%>
+      <div class="alert alert-dark" role="alert">
+        <%= @user.username %> hasn't published any posts yet.
+      </div>
+    <% else %>
+      <div class="d-flex flex-row justify-content-center"><%== pagy_bootstrap_nav(@pagy)%></div>
+        <%= render 'posts/post_display'%>
+      <div class="d-flex flex-row justify-content-center"><%== pagy_bootstrap_nav(@pagy)%></div>
+    <% end %>
+  <% else %>
+    <div class="alert alert-dark" role="alert">
+      You have to be <%= @user.username %>'s friend to see his/her posts.
+    </div>
+  <%end%>
 </div>
 </div>
 </div>

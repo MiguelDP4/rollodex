@@ -1,0 +1,16 @@
+<% @posts.each do |post| %>
+  <li class="list-group-item">
+    <div class="d-flex flex-row">
+      <a href="/users/<%= post.user.id %>" class="mr-2"><%= gravatar_for post.user %></a>
+      <div class="d-flex flex-column flex-grow-1">
+        <div class="d-flex flex-row align-items-center justify-content-between">
+          <%= link_to post.user.username, post.user, class: "m-0, username-style"%>
+          <%= link_to "See Profile", post.user, class: "btn btn-xs btn-dark"%>
+        </div>
+        <div class="d-flex flex-row align-items-center justify-content-between">
+          <%= post.content %>
+        </div>
+      </div>
+    </div>
+  </li>
+<% end %>
