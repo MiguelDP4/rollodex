@@ -14,17 +14,20 @@ class User < ApplicationRecord
 
   # Users who have yet to confirm friend requests
   def pending_friends
-    friendships.map{|friendship| friendship.friend if !friendship.confirmed}.compact
+    users_friendships = friendships.where("confirmed is null or confirmed = false")
+    User.all.where(id: (users_friendships.pluck :user_id)).or(User.all.where(id: (users_friendships.pluck :friend_id))).where.not(id: (self.id))
   end
 
   # Users who have requested to be friends
   def friend_requests
-    inverse_friendships.map{|friendship| friendship.user if !friendship.confirmed}.compact
+    users_friendships = inverse_friendships.where("confirmed is null")
+    User.all.where(id: (users_friendships.pluck :user_id)).or(User.all.where(id: (users_friendships.pluck :friend_id))).where.not(id: (self.id))
   end
 
   # All users with pending requests bothe incoming and outgoing
   def all_pending_requests
-    (pending_friends + friend_requests).flatten
+    users_friendships = Friendship.where("(user_id = #{self.id} OR friend_id = #{self.id}) AND (confirmed is null)")
+    User.all.where(id: (users_friendships.pluck :user_id)).or(User.all.where(id: (users_friendships.pluck :friend_id))).where.not(id: (self.id))
   end
 
   def confirm_friend(user)
