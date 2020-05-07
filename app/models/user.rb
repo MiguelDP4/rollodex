@@ -8,10 +8,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
 
   def friends
-    # friends_array = friendships.map{|friendship| friendship.friend if friendship.confirmed}
-    # friends_array += inverse_friendships.map{|friendship| friendship.user if friendship.confirmed}
-    # friends_array.compact
-    users_friendships = Friendship.all.where("user_id = #{self.id} OR friend_id = #{self.id}")
+    users_friendships = Friendship.where("(user_id = #{self.id} OR friend_id = #{self.id}) AND confirmed = true")
     friends_list =  User.all.where(id: (users_friendships.pluck :user_id)).or(User.all.where(id: (users_friendships.pluck :friend_id))).where.not(id: (self.id))
   end
 
