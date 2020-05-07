@@ -1,6 +1,11 @@
 <%= form_with(model: @post, local: true) do |f| %>
 <div class="form-group">
   <%= f.text_area :content, placeholder: "Compose new post...", class: "form-control" %>
+  <select name="post[privacy]" class="custom-select mt-1">
+    <option value="private">Private</option>
+    <option value="public">Public</option>
+  </select>
 </div>
+
 <%= f.submit "Post", class: "btn btn-dark" %>
 <% end %>
