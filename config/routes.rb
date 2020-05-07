@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'static_pages/home'
   get '/users/:id',               to: 'users#show', as: :user
   get '/users',                   to: 'users#index'
+  get '/friends',                 to: 'users#friends'
   post 'users/:id',               to: 'friendships#create'
   patch 'users/:id',              to: 'friendships#update'
   resources :friendships
