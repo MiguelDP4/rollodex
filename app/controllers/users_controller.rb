@@ -11,4 +11,8 @@ class UsersController < ApplicationController
   def friends
     @pagy, @users = pagy(current_user.friends)
   end
+
+  def friend_requests
+    @pagy, @users = pagy(current_user.friend_requests)
+  end
 end
