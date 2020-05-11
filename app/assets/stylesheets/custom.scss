@@ -64,3 +64,12 @@ a.btn-xs, input.btn-xs {
   background-color: #343a40;
   color: #eeeeee;
 }
+
+.chat-container {
+  height: calc(95vh - 60px);
+}
+
+.chat-messages {
+  overflow-y: auto;
+  height: calc(100% - 104px);
+}

@@ -1,0 +1,22 @@
+<% if @messages.any? %>
+  <% @messages.reverse_each do |message| %>
+    <li class="list-group-item">
+      <div class="d-flex flex-row">
+        <a href="/users/<%= message.user.id %>" class="mr-2"><%= gravatar_for message.user %></a>
+        <div class="d-flex flex-column flex-grow-1">
+          <div class="d-flex flex-row align-items-center justify-content-between">
+            <%= link_to message.user.username, message.user, class: "m-0, username-style"%>
+            <%= link_to "See Profile", message.user, class: "btn btn-xs btn-dark"%>
+          </div>
+          <div class="d-flex flex-row align-items-center justify-content-between">
+            <%= message.content %>
+          </div>
+        </div>
+      </div>
+    </li>
+  <% end %>
+<% else %>
+  <div class="alert alert-primary" role="alert">
+    No messages in this conversation. Say hello!
+  </div>
+<% end %>
