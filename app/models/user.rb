@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :friendships
   has_many :inverse_friendships, :class_name => "Friendship", :foreign_key => "friend_id"
   has_many :posts, dependent: :destroy
+  has_many :messages
 
   def friends
     users_friendships = Friendship.where("(user_id = #{self.id} OR friend_id = #{self.id}) AND confirmed = true")

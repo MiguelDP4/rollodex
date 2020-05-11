@@ -1,0 +1,7 @@
+<%= form_with(model: @message, local: true) do |f| %>
+<div class="form-group">
+  <%= f.text_area :content, placeholder: "Compose new message...", class: "form-control" %>
+  <%= f.hidden_field :conversation_id, value: params[:id] %>
+  <%= f.submit "Send", class: "btn btn-dark mt-1"%>
+</div>
+<% end %>
