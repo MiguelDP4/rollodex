@@ -1,0 +1,8 @@
+<%= form_tag("/search", :method => "get") do %>  
+  <div class="input-group ml-3">  
+    <%= search_field_tag :search_term, params[:search], placeholder: "Username or email", class: "form-control" %>  
+    <div class="input-group-append">  
+      <%= button_tag "Search for friends", class: 'btn btn-secondary', name: nil%>  
+    </div>  
+  </div>  
+<% end %>

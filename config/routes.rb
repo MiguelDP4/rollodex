@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post 'conversations/:id',       to: 'messages#create'
   get '/users/:id',               to: 'users#show', as: :user
   get '/users',                   to: 'users#index'
+  get '/search',                   to: 'users#search'
   get '/friends',                 to: 'users#friends'
   get '/friend_requests',         to: 'users#friend_requests'
   post 'users/:id',               to: 'friendships#create'
