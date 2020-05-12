@@ -8,6 +8,11 @@
               <%= link_to user.username, user, class: "m-0, username-style"%>
               <%= link_to "See Profile", user, class: "btn btn-xs btn-dark"%>
             </div>
+            <% if current_user.friend?(user) %>
+              <div class="text-muted text-small">
+                <%= user.email %>
+              </div>
+            <% end %>
           </div>
         </div>
           <div class="d-flex flex-row align-items-center mt-1 justify-content-between">
